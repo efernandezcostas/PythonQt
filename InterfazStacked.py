@@ -7,45 +7,55 @@ class VentanaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Ejemplo Stacked Layout")  # Establecer el título de la ventana
-        self.setMinimumSize(400, 150)  # Establecer el tamaño mínimo de la ventana
 
-        cajaVertical = QVBoxLayout()  # Crear un layout vertical
+        # ---- Caja Vertical ----
+        cajaVertical = QVBoxLayout()
+        self.stack = QStackedLayout()
+        cajaVertical.addLayout(self.stack)
 
-        self.stack = QStackedLayout()  # Crear un layout apilado
-        self.stack.addWidget(Cuadrado("red"))  # Añadir un widget rojo
-        self.stack.addWidget(Cuadrado("blue"))  # Añadir un widget azul
-        self.stack.addWidget(Cuadrado("green"))  # Añadir un widget verde
-        self.stack.addWidget(Cuadrado("orange"))  # Añadir un widget naranja
-        self.stack.setCurrentIndex(0)  # Establecer el widget rojo como el predeterminado
+        ## Creación widgets
+        self.diccionario_widgets = {
+            "red": Cuadrado("red"),
+            "blue": Cuadrado("blue"),
+            "green": Cuadrado("green"),
+            "orange": Cuadrado("orange"),
+            "purple": Cuadrado("purple"),
+            "black": Cuadrado("black"),
+            "white": Cuadrado("white"),
+        }
 
-        cajaVertical.addLayout(self.stack)  # Añadir el layout apilado al layout vertical
+        ## Add widgets
+        for widget in self.diccionario_widgets.values():
+            self.stack.addWidget(widget)
 
-        cajaHorizontal = QHBoxLayout()  # Crear un layout horizontal
-        cajaVertical.addLayout(cajaHorizontal)  # Añadir el layout horizontal al layout vertical
+        ## Widget al inciiar
+        self.setStackPorNombre("white")
 
-        # Botón Azul
+
+        # ----- Caja Horizontal 1 -----
+        cajaHorizontal = QHBoxLayout()
+        cajaVertical.addLayout(cajaHorizontal)
+
+        ## Creación botones
         botonAzul = QPushButton("Azul")
-        cajaHorizontal.addWidget(botonAzul)
-        botonAzul.pressed.connect(self.on_Boton_Azul)
-
-        # Botón Rojo
-        botonRojo = QPushButton("Rojo")  # Crear un botón con el texto "Rojo"
-        cajaHorizontal.addWidget(botonRojo)  # Añadir el botón al layout horizontal
-        botonRojo.pressed.connect(self.on_Boton_Rojo)  # Conectar la señal pressed del botón a la función on_Boton_Rojo
-
-        # Botón Verde
+        botonRojo = QPushButton("Rojo")
         botonVerde = QPushButton("Verde")
-        cajaHorizontal.addWidget(botonVerde)
-        botonVerde.pressed.connect(self.on_Boton_Verde)
-
-        # Botón Naranja
         botonNaranja = QPushButton("Naranja")
-        cajaHorizontal.addWidget(botonNaranja)
+
+        ## OnClick botones
+        botonAzul.pressed.connect(self.on_Boton_Azul)
+        botonRojo.pressed.connect(self.on_Boton_Rojo)
+        botonVerde.pressed.connect(self.on_Boton_Verde)
         botonNaranja.pressed.connect(self.on_Boton_Naranja)
 
+        ## Add botones
+        cajaHorizontal.addWidget(botonAzul)
+        cajaHorizontal.addWidget(botonRojo)
+        cajaHorizontal.addWidget(botonVerde)
+        cajaHorizontal.addWidget(botonNaranja)
 
-        # ---- Caja Horizontal 2 ----
+
+        # ----- Caja Horizontal 2 -----
         cajaHorizontal2 = QHBoxLayout()
         cajaVertical.addLayout(cajaHorizontal2)
 
@@ -68,7 +78,7 @@ class VentanaPrincipal(QMainWindow):
         cajaHorizontal2.addWidget(self.botonNaranjaRadio)
 
 
-        # ---- Caja Horizontal 3 ----
+        # ----- Caja Horizontal 3 -----
         cajaHorizontal3 = QHBoxLayout()
         cajaVertical.addLayout(cajaHorizontal3)
 
@@ -84,33 +94,36 @@ class VentanaPrincipal(QMainWindow):
         cajaHorizontal3.addWidget(self.botonVerdeCheck)
         cajaHorizontal3.addWidget(self.botonNaranjaCheck)
 
+        # ----- Settings -----
+        contenedor = QWidget()
+        contenedor.setLayout(cajaVertical)
+        self.setCentralWidget(contenedor)
 
-        # ---- Settings ----
-        contenedor = QWidget()  # Crear un widget contenedor
-        contenedor.setLayout(cajaVertical)  # Establecer el layout vertical como el layout del contenedor
-        self.setCentralWidget(contenedor)  # Establecer el contenedor como el widget central de la ventana
-        self.show()  # Mostrar la ventana
+        self.setWindowTitle("Ejemplo Stacked Layout")
+        self.setMinimumSize(400, 150)
+        self.show()
 
     def on_Boton_Rojo(self):
-        self.stack.setCurrentIndex(0)  # Cambiar al widget rojo
+        # self.stack.setCurrentIndex(0)  # Cambiar al widget rojo
+        self.setStackPorNombre("red")
         self.botonRojoRadio.toggle()
         self.checkToggle()
         self.botonRojoCheck.click()
 
     def on_Boton_Azul(self):
-        self.stack.setCurrentIndex(1)  # Cambiar al widget azul
+        self.setStackPorNombre("blue")
         self.botonAzulRadio.toggle()
         self.checkToggle()
         self.botonAzulCheck.click()
 
     def on_Boton_Verde(self):
-        self.stack.setCurrentIndex(2)  # Cambiar al widget verde
+        self.setStackPorNombre("green")
         self.botonVerdeRadio.toggle()
         self.checkToggle()
         self.botonVerdeCheck.click()
 
     def on_Boton_Naranja(self):
-        self.stack.setCurrentIndex(3)  # Cambiar al widget naranja
+        self.setStackPorNombre("orange")
         self.botonNaranjaRadio.toggle()
         self.checkToggle()
         self.botonNaranjaCheck.toggle()
@@ -120,6 +133,11 @@ class VentanaPrincipal(QMainWindow):
         if self.botonAzulCheck.isChecked(): self.botonAzulCheck.toggle()
         if self.botonVerdeCheck.isChecked(): self.botonVerdeCheck.toggle()
         if self.botonNaranjaCheck.isChecked(): self.botonNaranjaCheck.toggle()
+
+    def setStackPorNombre(self, nombre):
+        widget = self.diccionario_widgets.get(nombre)
+        if widget:
+            self.stack.setCurrentWidget(widget)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)  # Crear la aplicación
