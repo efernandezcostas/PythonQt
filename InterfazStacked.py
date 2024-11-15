@@ -44,9 +44,9 @@ class VentanaPrincipal(QMainWindow):
 
         ## OnClick botones
         boton_azul.pressed.connect(lambda: self.on_boton("blue"))
-        boton_rojo.pressed.connect(self.on_boton)
-        boton_verde.pressed.connect(self.on_boton)
-        boton_naranja.pressed.connect(self.on_boton)
+        boton_rojo.pressed.connect(lambda: self.on_boton("red"))
+        boton_verde.pressed.connect(lambda: self.on_boton("green"))
+        boton_naranja.pressed.connect(lambda: self.on_boton("orange"))
 
         ## Add botones
         caja_horizontal.addWidget(boton_azul)
@@ -67,9 +67,9 @@ class VentanaPrincipal(QMainWindow):
 
         ## OnClick botones
         self.boton_azul_radio.pressed.connect(lambda: self.on_boton("blue"))
-        self.boton_rojo_radio.pressed.connect(self.on_boton)
-        self.boton_verde_radio.pressed.connect(self.on_boton)
-        self.boton_naranja_radio.pressed.connect(self.on_boton)
+        self.boton_rojo_radio.pressed.connect(lambda: self.on_boton("red"))
+        self.boton_verde_radio.pressed.connect(lambda: self.on_boton("green"))
+        self.boton_naranja_radio.pressed.connect(lambda: self.on_boton("orange"))
 
         ## Add botones
         caja_horizontal2.addWidget(self.boton_azul_radio)
