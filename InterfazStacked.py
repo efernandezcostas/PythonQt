@@ -43,10 +43,10 @@ class VentanaPrincipal(QMainWindow):
         boton_naranja = QPushButton("Naranja")
 
         ## OnClick botones
-        boton_azul.pressed.connect(self.on_boton_azul)
-        boton_rojo.pressed.connect(self.on_boton_rojo)
-        boton_verde.pressed.connect(self.on_boton_verde)
-        boton_naranja.pressed.connect(self.on_boton_naranja)
+        boton_azul.pressed.connect(lambda: self.on_boton("blue"))
+        boton_rojo.pressed.connect(self.on_boton)
+        boton_verde.pressed.connect(self.on_boton)
+        boton_naranja.pressed.connect(self.on_boton)
 
         ## Add botones
         caja_horizontal.addWidget(boton_azul)
@@ -66,10 +66,10 @@ class VentanaPrincipal(QMainWindow):
         self.boton_naranja_radio = QRadioButton("Naranja")
 
         ## OnClick botones
-        self.boton_azul_radio.pressed.connect(self.on_boton_azul)
-        self.boton_rojo_radio.pressed.connect(self.on_boton_rojo)
-        self.boton_verde_radio.pressed.connect(self.on_boton_verde)
-        self.boton_naranja_radio.pressed.connect(self.on_boton_naranja)
+        self.boton_azul_radio.pressed.connect(lambda: self.on_boton("blue"))
+        self.boton_rojo_radio.pressed.connect(self.on_boton)
+        self.boton_verde_radio.pressed.connect(self.on_boton)
+        self.boton_naranja_radio.pressed.connect(self.on_boton)
 
         ## Add botones
         caja_horizontal2.addWidget(self.boton_azul_radio)
@@ -114,30 +114,27 @@ class VentanaPrincipal(QMainWindow):
         self.setMinimumSize(400, 180)
         self.show()
 
-    def on_boton_rojo(self):
-        # self.stack.setCurrentIndex(0)  # Cambiar al widget rojo
-        self.set_stack_por_nombre("red")
+    def on_boton(self, nombre):
+        self.set_stack_por_nombre(nombre)
         self.check_toggle()
-        self.boton_rojo_radio.toggle()
-        self.boton_rojo_check.click()
+        if nombre == "red":
+            self.boton_rojo_radio.toggle()
+            self.boton_rojo_check.toggle()
+        if nombre == "blue":
+            self.boton_azul_radio.toggle()
+            self.boton_azul_check.toggle()
+        if nombre == "green":
+            self.boton_verde_radio.toggle()
+            self.boton_verde_check.toggle()
+        if nombre == "orange":
+            self.boton_naranja_radio.toggle()
+            self.boton_naranja_check.toggle()
 
-    def on_boton_azul(self):
-        self.set_stack_por_nombre("blue")
-        self.check_toggle()
-        self.boton_azul_radio.toggle()
-        self.boton_azul_check.click()
-
-    def on_boton_verde(self):
-        self.set_stack_por_nombre("green")
-        self.check_toggle()
-        self.boton_verde_radio.toggle()
-        self.boton_verde_check.click()
-
-    def on_boton_naranja(self):
-        self.set_stack_por_nombre("orange")
-        self.check_toggle()
-        self.boton_naranja_radio.toggle()
-        self.boton_naranja_check.toggle()
+    # def on_boton_rojo(self):
+    #     self.set_stack_por_nombre("red")
+    #     self.check_toggle()
+    #     self.boton_rojo_radio.toggle()
+    #     self.boton_rojo_check.toggle()
 
     def check_toggle(self):
         if self.boton_rojo_check.isChecked(): self.boton_rojo_check.toggle()
