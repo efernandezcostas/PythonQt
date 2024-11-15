@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QStackedLayout, QVBoxLayout, QHBoxLayout, QPushButton, \
-    QRadioButton, QCheckBox
+    QRadioButton, QCheckBox, QTextEdit, QLineEdit, QComboBox
 from Cuadrado import Cuadrado
 
 class VentanaPrincipal(QMainWindow):
@@ -9,9 +9,9 @@ class VentanaPrincipal(QMainWindow):
 
 
         # ---- Caja Vertical ----
-        cajaVertical = QVBoxLayout()
+        caja_vertical = QVBoxLayout()
         self.stack = QStackedLayout()
-        cajaVertical.addLayout(self.stack)
+        caja_vertical.addLayout(self.stack)
 
         ## Creación widgets
         self.diccionario_widgets = {
@@ -29,112 +29,123 @@ class VentanaPrincipal(QMainWindow):
             self.stack.addWidget(widget)
 
         ## Widget al inciiar
-        self.setStackPorNombre("white")
+        self.set_stack_por_nombre("white")
 
 
         # ----- Caja Horizontal 1 -----
-        cajaHorizontal = QHBoxLayout()
-        cajaVertical.addLayout(cajaHorizontal)
+        caja_horizontal = QHBoxLayout()
+        caja_vertical.addLayout(caja_horizontal)
 
         ## Creación botones
-        botonAzul = QPushButton("Azul")
-        botonRojo = QPushButton("Rojo")
-        botonVerde = QPushButton("Verde")
-        botonNaranja = QPushButton("Naranja")
+        boton_azul = QPushButton("Azul")
+        boton_rojo = QPushButton("Rojo")
+        boton_verde = QPushButton("Verde")
+        boton_naranja = QPushButton("Naranja")
 
         ## OnClick botones
-        botonAzul.pressed.connect(self.on_Boton_Azul)
-        botonRojo.pressed.connect(self.on_Boton_Rojo)
-        botonVerde.pressed.connect(self.on_Boton_Verde)
-        botonNaranja.pressed.connect(self.on_Boton_Naranja)
+        boton_azul.pressed.connect(self.on_boton_azul)
+        boton_rojo.pressed.connect(self.on_boton_rojo)
+        boton_verde.pressed.connect(self.on_boton_verde)
+        boton_naranja.pressed.connect(self.on_boton_naranja)
 
         ## Add botones
-        cajaHorizontal.addWidget(botonAzul)
-        cajaHorizontal.addWidget(botonRojo)
-        cajaHorizontal.addWidget(botonVerde)
-        cajaHorizontal.addWidget(botonNaranja)
+        caja_horizontal.addWidget(boton_azul)
+        caja_horizontal.addWidget(boton_rojo)
+        caja_horizontal.addWidget(boton_verde)
+        caja_horizontal.addWidget(boton_naranja)
 
 
         # ----- Caja Horizontal 2 -----
-        cajaHorizontal2 = QHBoxLayout()
-        cajaVertical.addLayout(cajaHorizontal2)
+        caja_horizontal2 = QHBoxLayout()
+        caja_vertical.addLayout(caja_horizontal2)
 
         ## Creación botones
-        self.botonRojoRadio = QRadioButton("Rojo")
-        self.botonAzulRadio = QRadioButton("Azul")
-        self.botonVerdeRadio = QRadioButton("Verde")
-        self.botonNaranjaRadio = QRadioButton("Naranja")
+        self.boton_rojo_radio = QRadioButton("Rojo")
+        self.boton_azul_radio = QRadioButton("Azul")
+        self.boton_verde_radio = QRadioButton("Verde")
+        self.boton_naranja_radio = QRadioButton("Naranja")
 
         ## OnClick botones
-        self.botonAzulRadio.pressed.connect(self.on_Boton_Azul)
-        self.botonRojoRadio.pressed.connect(self.on_Boton_Rojo)
-        self.botonVerdeRadio.pressed.connect(self.on_Boton_Verde)
-        self.botonNaranjaRadio.pressed.connect(self.on_Boton_Naranja)
+        self.boton_azul_radio.pressed.connect(self.on_boton_azul)
+        self.boton_rojo_radio.pressed.connect(self.on_boton_rojo)
+        self.boton_verde_radio.pressed.connect(self.on_boton_verde)
+        self.boton_naranja_radio.pressed.connect(self.on_boton_naranja)
 
         ## Add botones
-        cajaHorizontal2.addWidget(self.botonAzulRadio)
-        cajaHorizontal2.addWidget(self.botonRojoRadio)
-        cajaHorizontal2.addWidget(self.botonVerdeRadio)
-        cajaHorizontal2.addWidget(self.botonNaranjaRadio)
+        caja_horizontal2.addWidget(self.boton_azul_radio)
+        caja_horizontal2.addWidget(self.boton_rojo_radio)
+        caja_horizontal2.addWidget(self.boton_verde_radio)
+        caja_horizontal2.addWidget(self.boton_naranja_radio)
 
 
         # ----- Caja Horizontal 3 -----
-        cajaHorizontal3 = QHBoxLayout()
-        cajaVertical.addLayout(cajaHorizontal3)
+        caja_horizontal3 = QHBoxLayout()
+        caja_vertical.addLayout(caja_horizontal3)
 
         ## Creación botones
-        self.botonRojoCheck = QCheckBox("Rojo")
-        self.botonAzulCheck = QCheckBox("Azul")
-        self.botonVerdeCheck = QCheckBox("Verde")
-        self.botonNaranjaCheck = QCheckBox("Naranja")
+        self.boton_rojo_check = QCheckBox("Rojo")
+        self.boton_azul_check = QCheckBox("Azul")
+        self.boton_verde_check = QCheckBox("Verde")
+        self.boton_naranja_check = QCheckBox("Naranja")
 
         ## Add botones
-        cajaHorizontal3.addWidget(self.botonAzulCheck)
-        cajaHorizontal3.addWidget(self.botonRojoCheck)
-        cajaHorizontal3.addWidget(self.botonVerdeCheck)
-        cajaHorizontal3.addWidget(self.botonNaranjaCheck)
+        caja_horizontal3.addWidget(self.boton_azul_check)
+        caja_horizontal3.addWidget(self.boton_rojo_check)
+        caja_horizontal3.addWidget(self.boton_verde_check)
+        caja_horizontal3.addWidget(self.boton_naranja_check)
+
+        # ----- Caja Horizontal 4 -----
+        caja_horizontal4 = QHBoxLayout()
+        caja_vertical.addLayout(caja_horizontal4)
+
+        ## Creacion combo box
+        combo_box = QComboBox()
+        combo_box.addItems(["Rojo", "Azul", "Verde", "Naranja"])
+
+        ## Add combo box
+        caja_horizontal4.addWidget(combo_box)
 
         # ----- Settings -----
         contenedor = QWidget()
-        contenedor.setLayout(cajaVertical)
+        contenedor.setLayout(caja_vertical)
         self.setCentralWidget(contenedor)
 
         self.setWindowTitle("Ejemplo Stacked Layout")
-        self.setMinimumSize(400, 150)
+        self.setMinimumSize(400, 180)
         self.show()
 
-    def on_Boton_Rojo(self):
+    def on_boton_rojo(self):
         # self.stack.setCurrentIndex(0)  # Cambiar al widget rojo
-        self.setStackPorNombre("red")
-        self.botonRojoRadio.toggle()
-        self.checkToggle()
-        self.botonRojoCheck.click()
+        self.set_stack_por_nombre("red")
+        self.check_toggle()
+        self.boton_rojo_radio.toggle()
+        self.boton_rojo_check.click()
 
-    def on_Boton_Azul(self):
-        self.setStackPorNombre("blue")
-        self.botonAzulRadio.toggle()
-        self.checkToggle()
-        self.botonAzulCheck.click()
+    def on_boton_azul(self):
+        self.set_stack_por_nombre("blue")
+        self.check_toggle()
+        self.boton_azul_radio.toggle()
+        self.boton_azul_check.click()
 
-    def on_Boton_Verde(self):
-        self.setStackPorNombre("green")
-        self.botonVerdeRadio.toggle()
-        self.checkToggle()
-        self.botonVerdeCheck.click()
+    def on_boton_verde(self):
+        self.set_stack_por_nombre("green")
+        self.check_toggle()
+        self.boton_verde_radio.toggle()
+        self.boton_verde_check.click()
 
-    def on_Boton_Naranja(self):
-        self.setStackPorNombre("orange")
-        self.botonNaranjaRadio.toggle()
-        self.checkToggle()
-        self.botonNaranjaCheck.toggle()
+    def on_boton_naranja(self):
+        self.set_stack_por_nombre("orange")
+        self.check_toggle()
+        self.boton_naranja_radio.toggle()
+        self.boton_naranja_check.toggle()
 
-    def checkToggle(self):
-        if self.botonRojoCheck.isChecked(): self.botonRojoCheck.toggle()
-        if self.botonAzulCheck.isChecked(): self.botonAzulCheck.toggle()
-        if self.botonVerdeCheck.isChecked(): self.botonVerdeCheck.toggle()
-        if self.botonNaranjaCheck.isChecked(): self.botonNaranjaCheck.toggle()
+    def check_toggle(self):
+        if self.boton_rojo_check.isChecked(): self.boton_rojo_check.toggle()
+        if self.boton_azul_check.isChecked(): self.boton_azul_check.toggle()
+        if self.boton_verde_check.isChecked(): self.boton_verde_check.toggle()
+        if self.boton_naranja_check.isChecked(): self.boton_naranja_check.toggle()
 
-    def setStackPorNombre(self, nombre):
+    def set_stack_por_nombre(self, nombre):
         widget = self.diccionario_widgets.get(nombre)
         if widget:
             self.stack.setCurrentWidget(widget)
